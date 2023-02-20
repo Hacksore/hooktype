@@ -1,0 +1,7 @@
+{
+  "$schema": "./types/@octokit/webhooks-types/workflow-run-completed-event.json",
+  "$ref": "#/definitions/WorkflowRunCompletedEvent",
+  "workflow_run": {
+
+  }
+}

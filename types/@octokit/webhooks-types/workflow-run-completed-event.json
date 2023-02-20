@@ -1,0 +1,1372 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/WorkflowRunCompletedEvent",
+  "definitions": {
+    "WorkflowRunCompletedEvent": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "const": "completed"
+        },
+        "organization": {
+          "$ref": "#/definitions/Organization"
+        },
+        "repository": {
+          "$ref": "#/definitions/Repository"
+        },
+        "sender": {
+          "$ref": "#/definitions/User"
+        },
+        "workflow": {
+          "$ref": "#/definitions/Workflow"
+        },
+        "workflow_run": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "conclusion": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "enum": [
+                "success",
+                "failure",
+                "neutral",
+                "cancelled",
+                "timed_out",
+                "action_required",
+                "stale",
+                "skipped",
+                null
+              ]
+            },
+            "artifacts_url": {
+              "type": "string",
+              "description": "The URL to the artifacts for the workflow run."
+            },
+            "cancel_url": {
+              "type": "string",
+              "description": "The URL to cancel the workflow run."
+            },
+            "check_suite_url": {
+              "type": "string",
+              "description": "The URL to the associated check suite."
+            },
+            "check_suite_id": {
+              "type": "number",
+              "description": "The ID of the associated check suite."
+            },
+            "check_suite_node_id": {
+              "type": "string",
+              "description": "The node ID of the associated check suite."
+            },
+            "created_at": {
+              "type": "string"
+            },
+            "event": {
+              "type": "string"
+            },
+            "head_branch": {
+              "type": "string"
+            },
+            "head_commit": {
+              "$ref": "#/definitions/SimpleCommit"
+            },
+            "head_repository": {
+              "$ref": "#/definitions/RepositoryLite"
+            },
+            "head_sha": {
+              "type": "string",
+              "description": "The SHA of the head commit that points to the version of the workflow being run."
+            },
+            "path": {
+              "type": "string",
+              "description": "The full path of the workflow"
+            },
+            "display_title": {
+              "type": "string"
+            },
+            "html_url": {
+              "type": "string"
+            },
+            "id": {
+              "type": "number",
+              "description": "The ID of the workflow run."
+            },
+            "jobs_url": {
+              "type": "string",
+              "description": "The URL to the jobs for the workflow run."
+            },
+            "logs_url": {
+              "type": "string",
+              "description": "The URL to download the logs for the workflow run."
+            },
+            "node_id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string",
+              "description": "The name of the workflow run."
+            },
+            "pull_requests": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "url": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "number"
+                  },
+                  "number": {
+                    "type": "number"
+                  },
+                  "head": {
+                    "type": "object",
+                    "properties": {
+                      "ref": {
+                        "type": "string"
+                      },
+                      "sha": {
+                        "type": "string"
+                      },
+                      "repo": {
+                        "$ref": "#/definitions/RepoRef"
+                      }
+                    },
+                    "required": [
+                      "ref",
+                      "sha",
+                      "repo"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "base": {
+                    "type": "object",
+                    "properties": {
+                      "ref": {
+                        "type": "string"
+                      },
+                      "sha": {
+                        "type": "string"
+                      },
+                      "repo": {
+                        "$ref": "#/definitions/RepoRef"
+                      }
+                    },
+                    "required": [
+                      "ref",
+                      "sha",
+                      "repo"
+                    ],
+                    "additionalProperties": false
+                  }
+                },
+                "required": [
+                  "url",
+                  "id",
+                  "number",
+                  "head",
+                  "base"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "repository": {
+              "$ref": "#/definitions/RepositoryLite"
+            },
+            "rerun_url": {
+              "type": "string",
+              "description": "The URL to rerun the workflow run."
+            },
+            "run_number": {
+              "type": "number",
+              "description": "The auto incrementing run number for the workflow run."
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "requested",
+                "in_progress",
+                "completed",
+                "queued",
+                "waiting"
+              ]
+            },
+            "updated_at": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string",
+              "description": "The URL to the workflow run."
+            },
+            "workflow_id": {
+              "type": "number",
+              "description": "The ID of the parent workflow."
+            },
+            "workflow_url": {
+              "type": "string",
+              "description": "The URL to the workflow."
+            },
+            "run_attempt": {
+              "type": "number",
+              "description": "Attempt number of the run, 1 for first attempt and higher if the workflow was re-run."
+            },
+            "referenced_workflows": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ReferencedWorkflow"
+              }
+            },
+            "run_started_at": {
+              "type": "string",
+              "description": "The start time of the latest run. Resets on re-run."
+            },
+            "previous_attempt_url": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "The URL to the previous attempted run of this workflow, if one exists."
+            },
+            "actor": {
+              "$ref": "#/definitions/User"
+            },
+            "triggering_actor": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "required": [
+            "actor",
+            "artifacts_url",
+            "cancel_url",
+            "check_suite_id",
+            "check_suite_node_id",
+            "check_suite_url",
+            "conclusion",
+            "created_at",
+            "display_title",
+            "event",
+            "head_branch",
+            "head_commit",
+            "head_repository",
+            "head_sha",
+            "html_url",
+            "id",
+            "jobs_url",
+            "logs_url",
+            "name",
+            "node_id",
+            "path",
+            "previous_attempt_url",
+            "pull_requests",
+            "repository",
+            "rerun_url",
+            "run_attempt",
+            "run_number",
+            "run_started_at",
+            "status",
+            "triggering_actor",
+            "updated_at",
+            "url",
+            "workflow_id",
+            "workflow_url"
+          ]
+        },
+        "installation": {
+          "$ref": "#/definitions/InstallationLite"
+        }
+      },
+      "required": [
+        "action",
+        "repository",
+        "sender",
+        "workflow",
+        "workflow_run"
+      ],
+      "additionalProperties": false
+    },
+    "Organization": {
+      "type": "object",
+      "properties": {
+        "login": {
+          "type": "string"
+        },
+        "id": {
+          "type": "number"
+        },
+        "node_id": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "html_url": {
+          "type": "string"
+        },
+        "repos_url": {
+          "type": "string"
+        },
+        "events_url": {
+          "type": "string"
+        },
+        "hooks_url": {
+          "type": "string"
+        },
+        "issues_url": {
+          "type": "string"
+        },
+        "members_url": {
+          "type": "string"
+        },
+        "public_members_url": {
+          "type": "string"
+        },
+        "avatar_url": {
+          "type": "string"
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "login",
+        "id",
+        "node_id",
+        "url",
+        "repos_url",
+        "events_url",
+        "hooks_url",
+        "issues_url",
+        "members_url",
+        "public_members_url",
+        "avatar_url",
+        "description"
+      ],
+      "additionalProperties": false
+    },
+    "Repository": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "description": "Unique identifier of the repository"
+        },
+        "node_id": {
+          "type": "string",
+          "description": "The GraphQL identifier of the repository."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the repository."
+        },
+        "full_name": {
+          "type": "string",
+          "description": "The full, globally unique, name of the repository."
+        },
+        "private": {
+          "type": "boolean",
+          "description": "Whether the repository is private or public."
+        },
+        "owner": {
+          "$ref": "#/definitions/User"
+        },
+        "html_url": {
+          "type": "string",
+          "description": "The URL to view the repository on GitHub.com."
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The repository description."
+        },
+        "fork": {
+          "type": "boolean",
+          "description": "Whether the repository is a fork."
+        },
+        "url": {
+          "type": "string",
+          "description": "The URL to get more information about the repository from the GitHub API."
+        },
+        "forks_url": {
+          "type": "string",
+          "description": "The API URL to list the forks of the repository."
+        },
+        "keys_url": {
+          "type": "string",
+          "description": "A template for the API URL to get information about deploy keys on the repository."
+        },
+        "collaborators_url": {
+          "type": "string",
+          "description": "A template for the API URL to get information about collaborators of the repository."
+        },
+        "teams_url": {
+          "type": "string",
+          "description": "The API URL to list the teams on the repository."
+        },
+        "hooks_url": {
+          "type": "string",
+          "description": "The API URL to list the hooks on the repository."
+        },
+        "issue_events_url": {
+          "type": "string",
+          "description": "A template for the API URL to get information about issue events on the repository."
+        },
+        "events_url": {
+          "type": "string",
+          "description": "The API URL to list the events of the repository."
+        },
+        "assignees_url": {
+          "type": "string",
+          "description": "A template for the API URL to list the available assignees for issues in the repository."
+        },
+        "branches_url": {
+          "type": "string",
+          "description": "A template for the API URL to get information about branches in the repository."
+        },
+        "tags_url": {
+          "type": "string",
+          "description": "The API URL to get information about tags on the repository."
+        },
+        "blobs_url": {
+          "type": "string",
+          "description": "A template for the API URL to create or retrieve a raw Git blob in the repository."
+        },
+        "git_tags_url": {
+          "type": "string",
+          "description": "A template for the API URL to get information about Git tags of the repository."
+        },
+        "git_refs_url": {
+          "type": "string",
+          "description": "A template for the API URL to get information about Git refs of the repository."
+        },
+        "trees_url": {
+          "type": "string",
+          "description": "A template for the API URL to create or retrieve a raw Git tree of the repository."
+        },
+        "statuses_url": {
+          "type": "string",
+          "description": "A template for the API URL to get information about statuses of a commit."
+        },
+        "languages_url": {
+          "type": "string",
+          "description": "The API URL to get information about the languages of the repository."
+        },
+        "stargazers_url": {
+          "type": "string",
+          "description": "The API URL to list the stargazers on the repository."
+        },
+        "contributors_url": {
+          "type": "string",
+          "description": "A template for the API URL to list the contributors to the repository."
+        },
+        "subscribers_url": {
+          "type": "string",
+          "description": "The API URL to list the subscribers on the repository."
+        },
+        "subscription_url": {
+          "type": "string",
+          "description": "The API URL to subscribe to notifications for this repository."
+        },
+        "commits_url": {
+          "type": "string",
+          "description": "A template for the API URL to get information about commits on the repository."
+        },
+        "git_commits_url": {
+          "type": "string",
+          "description": "A template for the API URL to get information about Git commits of the repository."
+        },
+        "comments_url": {
+          "type": "string",
+          "description": "A template for the API URL to get information about comments on the repository."
+        },
+        "issue_comment_url": {
+          "type": "string",
+          "description": "A template for the API URL to get information about issue comments on the repository."
+        },
+        "contents_url": {
+          "type": "string",
+          "description": "A template for the API URL to get the contents of the repository."
+        },
+        "compare_url": {
+          "type": "string",
+          "description": "A template for the API URL to compare two commits or refs."
+        },
+        "merges_url": {
+          "type": "string",
+          "description": "The API URL to merge branches in the repository."
+        },
+        "archive_url": {
+          "type": "string",
+          "description": "A template for the API URL to download the repository as an archive."
+        },
+        "downloads_url": {
+          "type": "string",
+          "description": "The API URL to list the downloads on the repository."
+        },
+        "issues_url": {
+          "type": "string",
+          "description": "A template for the API URL to get information about issues on the repository."
+        },
+        "pulls_url": {
+          "type": "string",
+          "description": "A template for the API URL to get information about pull requests on the repository."
+        },
+        "milestones_url": {
+          "type": "string",
+          "description": "A template for the API URL to get information about milestones of the repository."
+        },
+        "notifications_url": {
+          "type": "string",
+          "description": "A template for the API URL to get information about notifications on the repository."
+        },
+        "labels_url": {
+          "type": "string",
+          "description": "A template for the API URL to get information about labels of the repository."
+        },
+        "releases_url": {
+          "type": "string",
+          "description": "A template for the API URL to get information about releases on the repository."
+        },
+        "deployments_url": {
+          "type": "string",
+          "description": "The API URL to list the deployments of the repository."
+        },
+        "created_at": {
+          "type": [
+            "number",
+            "string"
+          ]
+        },
+        "updated_at": {
+          "type": "string"
+        },
+        "pushed_at": {
+          "type": [
+            "number",
+            "string",
+            "null"
+          ]
+        },
+        "git_url": {
+          "type": "string"
+        },
+        "ssh_url": {
+          "type": "string"
+        },
+        "clone_url": {
+          "type": "string"
+        },
+        "svn_url": {
+          "type": "string"
+        },
+        "homepage": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "size": {
+          "type": "number"
+        },
+        "stargazers_count": {
+          "type": "number"
+        },
+        "watchers_count": {
+          "type": "number"
+        },
+        "language": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "has_issues": {
+          "type": "boolean",
+          "description": "Whether issues are enabled."
+        },
+        "has_projects": {
+          "type": "boolean",
+          "description": "Whether projects are enabled."
+        },
+        "has_downloads": {
+          "type": "boolean",
+          "description": "Whether downloads are enabled."
+        },
+        "has_wiki": {
+          "type": "boolean",
+          "description": "Whether the wiki is enabled."
+        },
+        "has_pages": {
+          "type": "boolean"
+        },
+        "has_discussions": {
+          "type": "boolean",
+          "description": "Whether discussions are enabled."
+        },
+        "forks_count": {
+          "type": "number"
+        },
+        "mirror_url": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "archived": {
+          "type": "boolean",
+          "description": "Whether the repository is archived."
+        },
+        "disabled": {
+          "type": "boolean",
+          "description": "Returns whether or not this repository is disabled."
+        },
+        "open_issues_count": {
+          "type": "number"
+        },
+        "license": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/License"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "forks": {
+          "type": "number"
+        },
+        "open_issues": {
+          "type": "number"
+        },
+        "watchers": {
+          "type": "number"
+        },
+        "stargazers": {
+          "type": "number"
+        },
+        "default_branch": {
+          "type": "string",
+          "description": "The default branch of the repository."
+        },
+        "allow_squash_merge": {
+          "type": "boolean",
+          "description": "Whether to allow squash merges for pull requests."
+        },
+        "allow_merge_commit": {
+          "type": "boolean",
+          "description": "Whether to allow merge commits for pull requests."
+        },
+        "allow_rebase_merge": {
+          "type": "boolean",
+          "description": "Whether to allow rebase merges for pull requests."
+        },
+        "allow_auto_merge": {
+          "type": "boolean",
+          "description": "Whether to allow auto-merge for pull requests."
+        },
+        "allow_forking": {
+          "type": "boolean",
+          "description": "Whether to allow private forks"
+        },
+        "allow_update_branch": {
+          "type": "boolean"
+        },
+        "use_squash_pr_title_as_default": {
+          "type": "boolean"
+        },
+        "squash_merge_commit_message": {
+          "type": "string"
+        },
+        "squash_merge_commit_title": {
+          "type": "string"
+        },
+        "merge_commit_message": {
+          "type": "string"
+        },
+        "merge_commit_title": {
+          "type": "string"
+        },
+        "is_template": {
+          "type": "boolean"
+        },
+        "web_commit_signoff_required": {
+          "type": "boolean"
+        },
+        "topics": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "visibility": {
+          "type": "string",
+          "enum": [
+            "public",
+            "private",
+            "internal"
+          ]
+        },
+        "delete_branch_on_merge": {
+          "type": "boolean",
+          "description": "Whether to delete head branches when pull requests are merged"
+        },
+        "master_branch": {
+          "type": "string"
+        },
+        "permissions": {
+          "type": "object",
+          "properties": {
+            "pull": {
+              "type": "boolean"
+            },
+            "push": {
+              "type": "boolean"
+            },
+            "admin": {
+              "type": "boolean"
+            },
+            "maintain": {
+              "type": "boolean"
+            },
+            "triage": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "pull",
+            "push",
+            "admin"
+          ],
+          "additionalProperties": false
+        },
+        "public": {
+          "type": "boolean"
+        },
+        "organization": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "node_id",
+        "name",
+        "full_name",
+        "private",
+        "owner",
+        "html_url",
+        "description",
+        "fork",
+        "url",
+        "forks_url",
+        "keys_url",
+        "collaborators_url",
+        "teams_url",
+        "hooks_url",
+        "issue_events_url",
+        "events_url",
+        "assignees_url",
+        "branches_url",
+        "tags_url",
+        "blobs_url",
+        "git_tags_url",
+        "git_refs_url",
+        "trees_url",
+        "statuses_url",
+        "languages_url",
+        "stargazers_url",
+        "contributors_url",
+        "subscribers_url",
+        "subscription_url",
+        "commits_url",
+        "git_commits_url",
+        "comments_url",
+        "issue_comment_url",
+        "contents_url",
+        "compare_url",
+        "merges_url",
+        "archive_url",
+        "downloads_url",
+        "issues_url",
+        "pulls_url",
+        "milestones_url",
+        "notifications_url",
+        "labels_url",
+        "releases_url",
+        "deployments_url",
+        "created_at",
+        "updated_at",
+        "pushed_at",
+        "git_url",
+        "ssh_url",
+        "clone_url",
+        "svn_url",
+        "homepage",
+        "size",
+        "stargazers_count",
+        "watchers_count",
+        "language",
+        "has_issues",
+        "has_projects",
+        "has_downloads",
+        "has_wiki",
+        "has_pages",
+        "forks_count",
+        "mirror_url",
+        "archived",
+        "open_issues_count",
+        "license",
+        "forks",
+        "open_issues",
+        "watchers",
+        "default_branch",
+        "is_template",
+        "web_commit_signoff_required",
+        "topics",
+        "visibility"
+      ],
+      "additionalProperties": false,
+      "description": "A git repository"
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "login": {
+          "type": "string"
+        },
+        "id": {
+          "type": "number"
+        },
+        "node_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "avatar_url": {
+          "type": "string"
+        },
+        "gravatar_id": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "html_url": {
+          "type": "string"
+        },
+        "followers_url": {
+          "type": "string"
+        },
+        "following_url": {
+          "type": "string"
+        },
+        "gists_url": {
+          "type": "string"
+        },
+        "starred_url": {
+          "type": "string"
+        },
+        "subscriptions_url": {
+          "type": "string"
+        },
+        "organizations_url": {
+          "type": "string"
+        },
+        "repos_url": {
+          "type": "string"
+        },
+        "events_url": {
+          "type": "string"
+        },
+        "received_events_url": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "Bot",
+            "User",
+            "Organization"
+          ]
+        },
+        "site_admin": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "login",
+        "id",
+        "node_id",
+        "avatar_url",
+        "gravatar_id",
+        "url",
+        "html_url",
+        "followers_url",
+        "following_url",
+        "gists_url",
+        "starred_url",
+        "subscriptions_url",
+        "organizations_url",
+        "repos_url",
+        "events_url",
+        "received_events_url",
+        "type",
+        "site_admin"
+      ],
+      "additionalProperties": false
+    },
+    "License": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "spdx_id": {
+          "type": "string"
+        },
+        "url": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "node_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "key",
+        "name",
+        "spdx_id",
+        "url",
+        "node_id"
+      ],
+      "additionalProperties": false
+    },
+    "Workflow": {
+      "type": "object",
+      "properties": {
+        "badge_url": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "html_url": {
+          "type": "string"
+        },
+        "id": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "node_id": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "badge_url",
+        "created_at",
+        "html_url",
+        "id",
+        "name",
+        "node_id",
+        "path",
+        "state",
+        "updated_at",
+        "url"
+      ],
+      "additionalProperties": false
+    },
+    "SimpleCommit": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "tree_id": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "string"
+        },
+        "author": {
+          "$ref": "#/definitions/Committer"
+        },
+        "committer": {
+          "$ref": "#/definitions/Committer"
+        }
+      },
+      "required": [
+        "id",
+        "tree_id",
+        "message",
+        "timestamp",
+        "author",
+        "committer"
+      ],
+      "additionalProperties": false
+    },
+    "Committer": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The git author's name."
+        },
+        "email": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The git author's email address."
+        },
+        "date": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "email"
+      ],
+      "additionalProperties": false,
+      "description": "Metaproperties for Git author/committer information."
+    },
+    "RepositoryLite": {
+      "type": "object",
+      "properties": {
+        "archive_url": {
+          "type": "string",
+          "description": "A template for the API URL to download the repository as an archive."
+        },
+        "assignees_url": {
+          "type": "string",
+          "description": "A template for the API URL to list the available assignees for issues in the repository."
+        },
+        "blobs_url": {
+          "type": "string",
+          "description": "A template for the API URL to create or retrieve a raw Git blob in the repository."
+        },
+        "branches_url": {
+          "type": "string",
+          "description": "A template for the API URL to get information about branches in the repository."
+        },
+        "collaborators_url": {
+          "type": "string",
+          "description": "A template for the API URL to get information about collaborators of the repository."
+        },
+        "comments_url": {
+          "type": "string",
+          "description": "A template for the API URL to get information about comments on the repository."
+        },
+        "commits_url": {
+          "type": "string",
+          "description": "A template for the API URL to get information about commits on the repository."
+        },
+        "compare_url": {
+          "type": "string",
+          "description": "A template for the API URL to compare two commits or refs."
+        },
+        "contents_url": {
+          "type": "string",
+          "description": "A template for the API URL to get the contents of the repository."
+        },
+        "contributors_url": {
+          "type": "string",
+          "description": "A template for the API URL to list the contributors to the repository."
+        },
+        "deployments_url": {
+          "type": "string",
+          "description": "The API URL to list the deployments of the repository."
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The repository description."
+        },
+        "downloads_url": {
+          "type": "string",
+          "description": "The API URL to list the downloads on the repository."
+        },
+        "events_url": {
+          "type": "string",
+          "description": "The API URL to list the events of the repository."
+        },
+        "fork": {
+          "type": "boolean",
+          "description": "Whether the repository is a fork."
+        },
+        "forks_url": {
+          "type": "string",
+          "description": "The API URL to list the forks of the repository."
+        },
+        "full_name": {
+          "type": "string",
+          "description": "The full, globally unique, name of the repository."
+        },
+        "git_commits_url": {
+          "type": "string",
+          "description": "A template for the API URL to get information about Git commits of the repository."
+        },
+        "git_refs_url": {
+          "type": "string",
+          "description": "A template for the API URL to get information about Git refs of the repository."
+        },
+        "git_tags_url": {
+          "type": "string",
+          "description": "A template for the API URL to get information about Git tags of the repository."
+        },
+        "hooks_url": {
+          "type": "string",
+          "description": "The API URL to list the hooks on the repository."
+        },
+        "html_url": {
+          "type": "string",
+          "description": "The URL to view the repository on GitHub.com."
+        },
+        "id": {
+          "type": "number",
+          "description": "Unique identifier of the repository"
+        },
+        "issue_comment_url": {
+          "type": "string",
+          "description": "A template for the API URL to get information about issue comments on the repository."
+        },
+        "issue_events_url": {
+          "type": "string",
+          "description": "A template for the API URL to get information about issue events on the repository."
+        },
+        "issues_url": {
+          "type": "string",
+          "description": "A template for the API URL to get information about issues on the repository."
+        },
+        "keys_url": {
+          "type": "string",
+          "description": "A template for the API URL to get information about deploy keys on the repository."
+        },
+        "labels_url": {
+          "type": "string",
+          "description": "A template for the API URL to get information about labels of the repository."
+        },
+        "languages_url": {
+          "type": "string",
+          "description": "The API URL to get information about the languages of the repository."
+        },
+        "merges_url": {
+          "type": "string",
+          "description": "The API URL to merge branches in the repository."
+        },
+        "milestones_url": {
+          "type": "string",
+          "description": "A template for the API URL to get information about milestones of the repository."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the repository."
+        },
+        "node_id": {
+          "type": "string",
+          "description": "The GraphQL identifier of the repository."
+        },
+        "notifications_url": {
+          "type": "string",
+          "description": "A template for the API URL to get information about notifications on the repository."
+        },
+        "owner": {
+          "$ref": "#/definitions/User"
+        },
+        "private": {
+          "type": "boolean",
+          "description": "Whether the repository is private or public."
+        },
+        "pulls_url": {
+          "type": "string",
+          "description": "A template for the API URL to get information about pull requests on the repository."
+        },
+        "releases_url": {
+          "type": "string",
+          "description": "A template for the API URL to get information about releases on the repository."
+        },
+        "stargazers_url": {
+          "type": "string",
+          "description": "The API URL to list the stargazers on the repository."
+        },
+        "statuses_url": {
+          "type": "string",
+          "description": "A template for the API URL to get information about statuses of a commit."
+        },
+        "subscribers_url": {
+          "type": "string",
+          "description": "The API URL to list the subscribers on the repository."
+        },
+        "subscription_url": {
+          "type": "string",
+          "description": "The API URL to subscribe to notifications for this repository."
+        },
+        "tags_url": {
+          "type": "string",
+          "description": "The API URL to get information about tags on the repository."
+        },
+        "teams_url": {
+          "type": "string",
+          "description": "The API URL to list the teams on the repository."
+        },
+        "trees_url": {
+          "type": "string",
+          "description": "A template for the API URL to create or retrieve a raw Git tree of the repository."
+        },
+        "url": {
+          "type": "string",
+          "description": "The URL to get more information about the repository from the GitHub API."
+        }
+      },
+      "required": [
+        "archive_url",
+        "assignees_url",
+        "blobs_url",
+        "branches_url",
+        "collaborators_url",
+        "comments_url",
+        "commits_url",
+        "compare_url",
+        "contents_url",
+        "contributors_url",
+        "deployments_url",
+        "description",
+        "downloads_url",
+        "events_url",
+        "fork",
+        "forks_url",
+        "full_name",
+        "git_commits_url",
+        "git_refs_url",
+        "git_tags_url",
+        "hooks_url",
+        "html_url",
+        "id",
+        "issue_comment_url",
+        "issue_events_url",
+        "issues_url",
+        "keys_url",
+        "labels_url",
+        "languages_url",
+        "merges_url",
+        "milestones_url",
+        "name",
+        "node_id",
+        "notifications_url",
+        "owner",
+        "private",
+        "pulls_url",
+        "releases_url",
+        "stargazers_url",
+        "statuses_url",
+        "subscribers_url",
+        "subscription_url",
+        "tags_url",
+        "teams_url",
+        "trees_url",
+        "url"
+      ],
+      "additionalProperties": false
+    },
+    "RepoRef": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "url": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "url",
+        "name"
+      ],
+      "additionalProperties": false
+    },
+    "ReferencedWorkflow": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "sha": {
+          "type": "string"
+        },
+        "ref": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "sha"
+      ],
+      "additionalProperties": false,
+      "description": "A workflow referenced/reused by the initial caller workflow"
+    },
+    "InstallationLite": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "description": "The ID of the installation."
+        },
+        "node_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "node_id"
+      ],
+      "additionalProperties": false,
+      "description": "Installation"
+    }
+  }
+}
