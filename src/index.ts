@@ -4,7 +4,7 @@ import fs from "fs";
 const config: tsj.Config = {
   path: "node_modules/@octokit/webhooks-types/schema.d.ts",
   tsconfig: "./tsconfig.json",
-  type: "WorkflowJobEvent",
+  type: "WorkflowJobCompletedEvent",
 };
 
 const outputPath = "types/@octokit/webhooks-types";
@@ -16,6 +16,6 @@ fs.mkdirSync(outputPath, {
 
 const schema = tsj.createGenerator(config).createSchema(config.type);
 const schemaString = JSON.stringify(schema, null, 2);
-fs.writeFile(`${outputPath}/workflow-job-event.json`, schemaString, (err) => {
+fs.writeFile(`${outputPath}/workflow-job-completed-event.json`, schemaString, (err) => {
   if (err) throw err;
 });
